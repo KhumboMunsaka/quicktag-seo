@@ -1,0 +1,7 @@
+# Store packages (recreate with: node scripts/build.mjs)
+dist/
+
+# OS files
+Thumbs.db
+desktop.ini
+.DS_Store

@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QuickTag settings</title>
+  <link rel="icon" href="icons/icon32.png">
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <main class="page">
+    <header class="page-head">
+      <div class="mark" aria-hidden="true">QT</div>
+      <div>
+        <h1>QuickTag settings</h1>
+        <p class="sub">Changes save automatically.</p>
+      </div>
+    </header>
+
+    <section class="card" aria-labelledby="shortcut-title">
+      <h2 id="shortcut-title">Keyboard shortcut</h2>
+      <div class="current">
+        <span class="current-label">Show or hide QuickTag</span>
+        <span id="current-shortcut" class="keys"></span>
+      </div>
+
+      <!-- Firefox: record a new shortcut right here. -->
+      <div id="shortcut-editor" class="stack" hidden>
+        <div id="recorder" class="recorder" hidden>
+          <span id="recorder-keys" class="keys waiting">Press the keys you want to use…</span>
+          <button id="cancel-shortcut" class="btn" type="button">Cancel</button>
+        </div>
+        <div id="editor-actions" class="actions">
+          <button id="change-shortcut" class="btn primary" type="button">Change shortcut</button>
+          <button id="reset-shortcut" class="btn" type="button">Reset to Alt+Shift+Q</button>
+        </div>
+      </div>
+
+      <!-- Chrome and Edge: the browser's own shortcuts page. -->
+      <div id="shortcut-browser" class="stack" hidden>
+        <p class="hint">
+          <span class="browser-name">Chrome</span> only lets you change extension shortcuts on its own settings page.
+          Find <b>QuickTag</b> there, click the pencil icon next to the shortcut box, then press the keys you want.
+        </p>
+        <div class="actions">
+          <button id="open-browser-shortcuts" class="btn primary" type="button">Open <span class="browser-name">Chrome</span>'s shortcut settings</button>
+        </div>
+      </div>
+
+      <p id="shortcut-message" class="message" role="status"></p>
+      <p class="hint">
+        Use Ctrl or Alt with a letter or number, for example <b>Alt+Shift+Q</b>.
+        Avoid shortcuts your browser already uses, such as Ctrl+T or Ctrl+Shift+N.
+      </p>
+    </section>
+
+    <section class="card" aria-labelledby="copy-title">
+      <h2 id="copy-title">Copy button</h2>
+      <p class="hint">
+        Choose what the <b>Copy</b> button in the panel copies. You can always use the other format from the arrow next to
+        <b>Copy</b>.
+      </p>
+
+      <label class="option">
+        <input type="radio" name="copy-format" value="columns">
+        <span class="option-body">
+          <span class="option-title">Two columns <span class="badge good">Default</span></span>
+          <span class="option-desc">
+            Field names on the left, values on the right. Handy for checking one old page against one new page:
+            paste them next to each other and read across.
+          </span>
+          <table class="preview narrow" aria-label="Example">
+            <tbody>
+              <tr><th>URL</th><td>/widgets/blue/</td></tr>
+              <tr><th>Title</th><td>Blue Widgets for Sale…</td></tr>
+              <tr><th>Meta description</th><td>Shop our range of blue…</td></tr>
+              <tr><th>H1</th><td>Blue Widgets</td></tr>
+            </tbody>
+          </table>
+        </span>
+      </label>
+
+      <label class="option">
+        <input type="radio" name="copy-format" value="row">
+        <span class="option-body">
+          <span class="option-title">One row per page</span>
+          <span class="option-desc">
+            Each page pastes as a single line, so your spreadsheet builds up a list of pages. Start a new sheet with
+            <b>Copy column headings</b> (in the arrow menu), then paste each page under the last.
+          </span>
+          <table class="preview" aria-label="Example">
+            <thead><tr><th>URL</th><th>Title</th><th>Meta description</th><th>H1</th></tr></thead>
+            <tbody>
+              <tr><td>/widgets/blue/</td><td>Blue Widgets for Sale…</td><td>Shop our range of blue…</td><td>Blue Widgets</td></tr>
+              <tr><td>/widgets/red/</td><td>Red Widgets for Sale…</td><td>Shop our range of red…</td><td>Red Widgets</td></tr>
+            </tbody>
+          </table>
+        </span>
+      </label>
+    </section>
+
+    <p class="foot">QuickTag <span id="version"></span></p>
+  </main>
+  <script src="options.js"></script>
+</body>
+</html>

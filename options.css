@@ -1,0 +1,111 @@
+/* Same tokens as the panel (QuickTag implementation tokens in the Figma file). */
+:root {
+  --canvas: #101114;
+  --panel: #1c1d21;
+  --elevated: #24262b;
+  --hover: #2c2e35;
+  --border: #383a43;
+  --divider: #30323a;
+  --text: #f2f3f5;
+  --secondary: #b2b5bf;
+  --muted: #858995;
+  --accent: #a5b4fc;
+  --good: #78d6a3;
+  --good-subtle: #203b2d;
+  --error: #ff9393;
+  --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+  --mono: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--canvas);
+  color: var(--text);
+  font: 400 13px/19px var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.page { max-width: 640px; margin: 0 auto; padding: 48px 16px 64px; display: flex; flex-direction: column; gap: 24px; }
+
+.page-head { display: flex; align-items: center; gap: 14px; }
+.mark {
+  flex: none; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px;
+  border-radius: 8px; background: var(--hover); border: 1px solid var(--border);
+  color: var(--accent); font: 700 14px/1 var(--sans);
+}
+h1 { margin: 0; font: 600 24px/32px var(--sans); }
+.sub { margin: 0; color: var(--secondary); }
+
+.card {
+  display: flex; flex-direction: column; gap: 16px; padding: 24px;
+  background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
+}
+h2 { margin: 0; font: 600 16px/22px var(--sans); }
+.stack { display: flex; flex-direction: column; gap: 12px; }
+.stack[hidden], [hidden] { display: none !important; }
+
+.current {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 12px 16px; border-radius: 6px; background: var(--elevated);
+}
+.current-label { font-weight: 600; }
+.keys { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 4px; }
+.keys.none, .keys.waiting { color: var(--muted); }
+kbd {
+  min-width: 26px; padding: 3px 8px; text-align: center;
+  border: 1px solid var(--border); border-bottom-width: 2px; border-radius: 4px; background: var(--panel);
+  font: 600 12px/18px var(--sans); color: var(--text);
+}
+
+.actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.btn {
+  appearance: none; height: 32px; padding: 0 12px; cursor: pointer;
+  border: 1px solid var(--border); border-radius: 6px; background: var(--elevated);
+  color: var(--text); font: 600 12px/1 var(--sans);
+}
+.btn:hover { background: var(--hover); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #16182a; }
+.btn.primary:hover { background: #bcc7fd; }
+
+.recorder {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 12px 16px; border: 1px dashed var(--accent); border-radius: 6px; background: rgba(165, 180, 252, .06);
+}
+
+.message { margin: 0; min-height: 19px; font-size: 12px; }
+.message:empty { display: none; }
+.message.good { color: var(--good); }
+.message.error { color: var(--error); }
+.hint { margin: 0; color: var(--secondary); font-size: 12px; line-height: 18px; }
+.hint b, .option-desc b { color: var(--text); font-weight: 600; }
+
+.option {
+  display: flex; align-items: flex-start; gap: 12px; padding: 16px; cursor: pointer;
+  border: 1px solid var(--border); border-radius: 8px;
+}
+.option:hover { background: var(--elevated); }
+.option:has(input:checked) { border-color: var(--accent); background: rgba(165, 180, 252, .06); }
+.option input { flex: none; margin: 3px 0 0; accent-color: var(--accent); width: 15px; height: 15px; }
+.option-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.option-title { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-weight: 600; }
+.option-desc { color: var(--secondary); font-size: 12px; line-height: 18px; }
+.badge { padding: 2px 6px; border-radius: 4px; font: 600 11px/16px var(--sans); }
+.badge.good { background: var(--good-subtle); color: var(--good); }
+
+.preview {
+  width: 100%; margin-top: 4px; border-collapse: collapse; table-layout: fixed;
+  font: 400 11px/16px var(--mono); color: var(--text);
+}
+.preview.narrow { width: 75%; }
+.preview th, .preview td {
+  padding: 4px 6px; border: 1px solid var(--divider); text-align: left;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.preview th { font: 600 11px/16px var(--sans); color: var(--secondary); background: var(--elevated); }
+
+.foot { margin: 0; text-align: center; color: var(--muted); font-size: 11px; }

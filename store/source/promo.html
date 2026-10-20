@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>QuickTag promo tile</title>
+  <style>
+    html, body { margin: 0; width: 440px; height: 280px; overflow: hidden; }
+    body {
+      font-family: "Segoe UI", system-ui, sans-serif; color: #f2f3f5;
+      background:
+        radial-gradient(360px 260px at 100% 0%, rgba(165, 180, 252, .28), transparent 65%),
+        radial-gradient(300px 220px at 0% 100%, rgba(250, 204, 21, .12), transparent 65%),
+        #101114;
+      box-sizing: border-box; padding: 34px 34px 30px;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .top { display: flex; align-items: center; gap: 16px; }
+    .mark {
+      width: 60px; height: 60px; border-radius: 14px; background: #facc15; color: #111827;
+      display: grid; place-items: center; font-size: 24px; font-weight: 800;
+    }
+    .name { font-size: 36px; font-weight: 700; letter-spacing: -.02em; line-height: 1; }
+    .tag { margin-top: 6px; font-size: 17px; color: #b2b5bf; }
+    .card {
+      background: #1c1d21; border: 1px solid #383a43; border-radius: 10px; padding: 12px 14px;
+      display: flex; flex-direction: column; gap: 9px;
+    }
+    .row { display: flex; align-items: center; justify-content: space-between; font-size: 12px; font-weight: 600; letter-spacing: .06em; color: #b2b5bf; }
+    .b { font-size: 12px; font-weight: 600; letter-spacing: 0; padding: 2px 7px; border-radius: 4px; }
+    .good { background: #203b2d; color: #78d6a3; }
+    .warn { background: #413522; color: #ebc078; }
+    .crit { background: #d93842; color: #fff; }
+  </style>
+</head>
+<body>
+  <div class="top">
+    <div class="mark">QT</div>
+    <div>
+      <div class="name">QuickTag</div>
+      <div class="tag">SEO meta tags, one shortcut away</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="row">TITLE <span class="b good">54 chars</span></div>
+    <div class="row">H1 <span class="b warn">2 H1s</span></div>
+    <div class="row">META ROBOTS <span class="b crit">NOINDEX</span></div>
+  </div>
+</body>
+</html>

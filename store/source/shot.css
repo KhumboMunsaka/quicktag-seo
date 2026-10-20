@@ -1,0 +1,40 @@
+/* Layout for the captioned store screenshots: text on the left, the real QuickTag panel on the right. */
+html, body { margin: 0; height: 100%; }
+body {
+  overflow: hidden;
+  color: #f2f3f5;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background:
+    radial-gradient(900px 640px at 92% 8%, rgba(165, 180, 252, .18), transparent 62%),
+    radial-gradient(760px 520px at 0% 100%, rgba(250, 204, 21, .08), transparent 60%),
+    #101114;
+}
+.copy {
+  position: absolute; left: 80px; top: 0; bottom: 0; width: 660px;
+  display: flex; flex-direction: column; justify-content: center; gap: 22px;
+}
+.brand { display: flex; align-items: center; gap: 12px; font-size: 18px; font-weight: 600; color: #b2b5bf; }
+.mark {
+  width: 36px; height: 36px; border-radius: 9px; background: #facc15; color: #111827;
+  display: grid; place-items: center; font-size: 14px; font-weight: 800;
+}
+.headline { font-size: 52px; line-height: 1.08; font-weight: 700; letter-spacing: -.02em; }
+.sub { font-size: 21px; line-height: 1.5; color: #b2b5bf; }
+.points { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-direction: column; gap: 14px; font-size: 19px; }
+.points li { display: flex; align-items: center; gap: 14px; }
+.points li::before { content: ""; flex: none; width: 9px; height: 9px; border-radius: 50%; background: #a5b4fc; }
+
+/* The page's own tags live here: rendered (so QuickTag sees them as visible) but off-screen. */
+.page-content { position: absolute; left: -10000px; top: 0; width: 600px; }
+
+/* Spreadsheet illustration */
+.sheet { margin-top: 8px; background: #fff; color: #1f2328; border-radius: 10px; overflow: hidden; box-shadow: 0 16px 40px rgba(0, 0, 0, .35); }
+.sheet-bar { display: flex; align-items: center; gap: 8px; padding: 9px 12px; background: #f3f4f6; border-bottom: 1px solid #e5e7eb; font-size: 13px; font-weight: 600; color: #374151; }
+.sheet-bar i { width: 10px; height: 10px; border-radius: 50%; background: #d1d5db; }
+.sheet table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 12.5px; }
+.sheet th, .sheet td { border: 1px solid #e5e7eb; padding: 6px 8px; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sheet th { background: #f9fafb; color: #6b7280; font-weight: 500; text-align: center; }
+.sheet td.n { background: #f9fafb; color: #6b7280; text-align: center; }
+.sheet td.k { color: #4b5563; }
+.sheet td.bad { background: #fde8e8; color: #9b1c1c; }
+.sheet tr.group th { background: #eef2ff; color: #3730a3; font-weight: 600; }
