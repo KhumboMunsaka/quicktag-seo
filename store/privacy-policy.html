@@ -34,7 +34,7 @@
 <body>
   <main>
     <h1>QuickTag Privacy Policy</h1>
-    <p class="meta">QuickTag – SEO Meta Tag Checker, for Chrome and Firefox · Effective 15 October 2026</p>
+    <p class="meta">QuickTag – SEO Meta Tag Checker, for Chrome and Firefox · Effective 21 October 2026</p>
 
     <p class="summary">
       <strong>In short:</strong> QuickTag doesn't collect, sell or share any personal data. It reads the page you're viewing inside
@@ -56,7 +56,8 @@
       <li>canonical and hreflang link tags;</li>
       <li>H1 to H6 headings, and whether each one is visible;</li>
       <li>the page's language and character set;</li>
-      <li>structured data (JSON-LD and microdata types).</li>
+      <li>structured data (JSON-LD and microdata types);</li>
+      <li>the web app manifest and icon link tags (<code>manifest</code>, <code>icon</code> and <code>apple-touch-icon</code>).</li>
     </ul>
     <p>
       This all happens inside your browser. QuickTag doesn't read form fields, passwords, cookies or your browsing history.
@@ -88,6 +89,14 @@
       One thing to be aware of: when you open the Social tags section, QuickTag shows a preview of the page's
       <code>og:image</code> or <code>twitter:image</code>. Your browser loads that image directly from the address the page lists,
       just as it loads any other image on the page. QuickTag adds no information to that request and sends no referrer.
+    </p>
+    <p>
+      To check that a site's icons are the right size, QuickTag downloads the site's web app manifest and the icon files that
+      the page and the manifest list, from the addresses they give, much as your browser loads them itself. While the
+      Manifest &amp; icons section is open, it also checks the usual addresses on the site you're viewing
+      (<code>/site.webmanifest</code>, <code>/manifest.json</code>, <code>/manifest.webmanifest</code> and
+      <code>/favicon.ico</code>) when the page doesn't link those files. QuickTag adds no information to these requests, and
+      what comes back is only shown in the panel.
     </p>
 
     <h2>Sharing and selling</h2>
