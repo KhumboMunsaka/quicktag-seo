@@ -51,6 +51,8 @@
   let shown = false;
   let host, shadow, panel, menu;
   let data = null;
+  let headingEls = []; // the page's h1–h6 elements, in the same order as data.headings
+  let hoveredHeading = null; // page heading under the pointer, lit up in the panel
   let shortcut = 'Alt+Shift+Q'; // replaced with the user's actual binding once the background replies
   let lastSig = '';
   let scrollTop = 0;
@@ -192,7 +194,8 @@
 
   function collect() {
     const meta = readMetas();
-    const headings = $$('h1, h2, h3, h4, h5, h6').map((el) => ({
+    headingEls = $$('h1, h2, h3, h4, h5, h6');
+    const headings = headingEls.map((el) => ({
       level: Number(el.localName[1]),
       text: textOf(el),
       hidden: !isVisible(el),
@@ -634,7 +637,7 @@
   function section(id, title, summary, ...content) {
     const det = h(
       'details',
-      { class: 'sec' },
+      { class: 'sec', 'data-sec': id },
       h(
         'summary',
         {},
@@ -831,11 +834,17 @@
       : h('div', { class: 'v-body missing' }, 'No meta description found');
 
     // H1
+    // data-hd ties a row to its page heading (its index in d.headings) for the hover highlight.
     const h1Value = d.h1.length
       ? d.h1.map((x) =>
           x.hidden
-            ? h('div', { class: 'hidden-row' }, h('span', { class: 'v-body missing' }, x.text || 'Empty H1'), badge(['neutral', 'hidden', 'Not visible on the page']))
-            : h('div', { class: x.text ? 'v-body' : 'v-body missing' }, x.text || 'Empty H1')
+            ? h(
+                'div',
+                { class: 'hidden-row', 'data-hd': d.headings.indexOf(x) },
+                h('span', { class: 'v-body missing' }, x.text || 'Empty H1'),
+                badge(['neutral', 'hidden', 'Not visible on the page'])
+              )
+            : h('div', { class: x.text ? 'v-body' : 'v-body missing', 'data-hd': d.headings.indexOf(x) }, x.text || 'Empty H1')
         )
       : h('div', { class: 'v-body missing' }, 'No H1 heading found');
 
@@ -867,10 +876,10 @@
       ? h(
           'div',
           { class: 'outline' },
-          d.headings.slice(0, MAX_HEADINGS).map((x) =>
+          d.headings.slice(0, MAX_HEADINGS).map((x, i) =>
             h(
               'div',
-              { class: `hd l${x.level}` },
+              { class: `hd l${x.level}`, 'data-hd': i },
               h('span', { class: x.level === 1 ? 'level h1' : 'level' }, `H${x.level}`),
               h('span', { class: x.hidden || !x.text ? 'hd-text muted' : 'hd-text' }, x.text || '(empty heading)'),
               x.hidden ? badge(['neutral', 'hidden', 'Not visible on the page']) : null
@@ -1049,6 +1058,50 @@
     e.stopPropagation();
   }
 
+  // ---------- page heading hover ----------
+  // Hovering a heading on the page lights up its row in the panel. Matching is by element, not text,
+  // so headings the site restyles (e.g. CSS uppercase) still match.
+
+  function onPageHover(e) {
+    setHoveredHeading(e.target?.closest?.('h1, h2, h3, h4, h5, h6') ?? null);
+  }
+
+  function onPageLeave(e) {
+    if (!e.relatedTarget) setHoveredHeading(null); // the pointer left the window
+  }
+
+  function setHoveredHeading(el) {
+    if (el === hoveredHeading) return;
+    hoveredHeading = el;
+    showHoveredHeading();
+  }
+
+  function showHoveredHeading() {
+    if (!panel) return;
+    panel.querySelectorAll('.linked').forEach((el) => el.classList.remove('linked'));
+    const index = hoveredHeading ? headingEls.indexOf(hoveredHeading) : -1;
+    if (index < 0) return;
+    const rows = [...panel.querySelectorAll(`[data-hd="${index}"]`)];
+    rows.forEach((el) => el.classList.add('linked'));
+    // A closed Headings section lights up its title bar instead, so there's always something to see.
+    const sec = panel.querySelector('details[data-sec="headings"]');
+    const summary = sec && !sec.open ? sec.querySelector('summary') : null;
+    summary?.classList.add('linked');
+    // Scroll to the outline row if it's showing, otherwise the H1 entry or the section title. (Rows in a
+    // closed section can still report a stale position in Chrome, so they're skipped by structure.)
+    reveal(rows.filter((el) => !el.closest('details:not([open])')).at(-1) ?? summary);
+  }
+
+  // Scrolls the panel (never the page) just enough to bring `el` into view.
+  function reveal(el) {
+    const scroller = panel.querySelector('.body');
+    if (!el || !scroller) return;
+    const view = scroller.getBoundingClientRect();
+    const box = el.getBoundingClientRect();
+    if (box.top < view.top) scroller.scrollTop -= view.top - box.top + 12;
+    else if (box.bottom > view.bottom) scroller.scrollTop += box.bottom - view.bottom + 12;
+  }
+
   function render(force) {
     if (!shown || !panel || !data) return;
     const assets = inspectAssets(data);
@@ -1064,6 +1117,7 @@
       scroller.addEventListener('scroll', () => (scrollTop = scroller.scrollTop));
     }
     positionMenu(); // the header was rebuilt, so re-anchor an open copy menu
+    showHoveredHeading();
   }
 
   function refresh() {
@@ -1148,6 +1202,8 @@
       attributes: true,
       attributeFilter: ['content', 'href', 'rel', 'name', 'property', 'hreflang', 'lang'],
     });
+    document.addEventListener('mouseover', onPageHover, true);
+    document.addEventListener('mouseout', onPageLeave, true);
     // Catch single-page-app URL changes and pages that wipe out our element.
     pollTimer = setInterval(() => {
       if (!alive()) return hide();
@@ -1163,6 +1219,9 @@
     closeMenu();
     shown = false;
     observer?.disconnect();
+    document.removeEventListener('mouseover', onPageHover, true);
+    document.removeEventListener('mouseout', onPageLeave, true);
+    hoveredHeading = null;
     clearInterval(pollTimer);
     clearTimeout(refreshTimer);
     clearTimeout(renderTimer);
@@ -1302,6 +1361,7 @@
       --error: #ff9393;
       --error-subtle: #44292d;
       --critical: #d93842;
+      --linked: rgba(165, 180, 252, .16); /* accent tint: heading under the pointer on the page */
       --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
       --mono: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
     }
@@ -1460,6 +1520,15 @@
     .hd-text { flex: 1; min-width: 0; font: 400 12px/18px var(--sans); color: var(--text); overflow-wrap: anywhere; user-select: text; -webkit-user-select: text; }
     .hd-text.muted { color: var(--muted); }
     .more { padding-top: 4px; font: 400 11px/16px var(--sans); color: var(--muted); }
+
+    /* heading under the pointer on the page */
+    .hd, [data-hd], summary { transition: background-color .12s, box-shadow .12s; }
+    .hd.linked, .v-body.linked, .hidden-row.linked {
+      border-radius: 4px; background: var(--linked); box-shadow: 0 0 0 4px var(--linked);
+    }
+    .hd.linked .level { background: var(--accent); color: #16182a; }
+    .hd.linked .hd-text { color: var(--text); }
+    summary.linked, details[open] > summary.linked { background: var(--linked); box-shadow: inset 2px 0 0 var(--accent); }
 
     /* key/value pairs */
     .pairs { display: flex; flex-direction: column; padding: 0 16px 16px; }
