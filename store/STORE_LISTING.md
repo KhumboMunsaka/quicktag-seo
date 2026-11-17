@@ -49,6 +49,7 @@ WHAT QUICKTAG CHECKS
 • Social tags: Open Graph (og:title, og:description, og:image with a preview, og:url, og:type, og:site_name) and Twitter Card tags.
 • Hreflang: every language and region alternate, with its URL.
 • Structured data: JSON-LD and microdata types, with broken JSON-LD flagged along with the error message.
+• Manifest & icons: checks every icon in the web app manifest, plus the favicon and apple-touch-icon, against its real file. Flags wrong sizes, broken files, wrong types, non-square images, missing 192×192 or 512×512 icons, and a manifest or favicon that isn't linked.
 • Page info: the lang attribute, character set and viewport.
 
 FAST BY DESIGN
@@ -64,7 +65,7 @@ COPY RESULTS TO A SPREADSHEET
 • Missing tags are written as "(none)", so an empty cell is never mistaken for a failed copy.
 
 PRIVATE BY DESIGN
-QuickTag reads the page you're viewing inside your browser, and only on sites where you switch it on. It doesn't collect, store or send your browsing data anywhere: no accounts, no analytics, no tracking. The only things it saves are the list of sites you've switched it on for and your panel settings, kept in your browser.
+QuickTag reads the page you're viewing inside your browser, and only on sites where you switch it on. It doesn't collect, store or send your browsing data anywhere: no accounts, no analytics, no tracking. The only things it saves are the list of sites you've switched it on for and your panel settings, kept in your browser. To check icon sizes, it loads the site's own manifest and icon files, just as your browser does.
 
 HOW TO USE
 1. Open any web page.
@@ -95,7 +96,7 @@ Developer Dashboard → **Add new item** → upload `dist/quicktag-chrome-1.0.0.
 
 **Single purpose description**
 ```
-QuickTag shows the SEO metadata of the web page the user is viewing (title tag, meta description, headings, canonical URL, meta robots, hreflang, social tags and structured data) in an on-page panel, so the user can check it and copy it into a spreadsheet.
+QuickTag shows the SEO metadata of the web page the user is viewing (title tag, meta description, headings, canonical URL, meta robots, hreflang, social tags, structured data, and manifest and icon sizes) in an on-page panel, so the user can check it and copy it into a spreadsheet.
 ```
 
 **Permission justifications**
@@ -117,7 +118,7 @@ Used together with activeTab to add QuickTag's panel script to the current tab w
 
 Host permission (content script on all sites)
 ```
-QuickTag's single purpose is to inspect the SEO tags of whatever page the user is viewing, on any website, so its content script must be able to run on all sites. The script reads the page's title, meta and link tags, headings and structured data locally to display them in the panel. It stays idle, only checking QuickTag's own on/off setting, until the user switches QuickTag on for that site. Page data is never sent anywhere.
+QuickTag's single purpose is to inspect the SEO tags of whatever page the user is viewing, on any website, so its content script must be able to run on all sites. The script reads the page's title, meta and link tags, headings and structured data locally to display them in the panel, and loads the site's web app manifest and icon files to check their sizes. It stays idle, only checking QuickTag's own on/off setting, until the user switches QuickTag on for that site. Page data is never sent anywhere.
 ```
 
 **Are you using remote code?** No, I am not using remote code.
@@ -164,5 +165,5 @@ To test: open any website (for example https://www.mozilla.org/), then press Alt
 
 Settings (keyboard shortcut and default copy format) open from the "Settings" link in the panel footer, or from about:addons → QuickTag → Preferences.
 
-The content script on all sites only reads QuickTag's own on/off setting until the user switches QuickTag on for a site. No data leaves the browser; data_collection_permissions is set to "none".
+The content script on all sites only reads QuickTag's own on/off setting until the user switches QuickTag on for a site. No data leaves the browser; data_collection_permissions is set to "none". The only network requests QuickTag makes are fetches of the viewed site's web app manifest and icon files (for the "Manifest & icons" size check); nothing is sent to any other server.
 ```
