@@ -134,3 +134,7 @@ Alt+Shift+Q isn't used by Chrome or Firefox. If another extension already uses i
 - `scripts/build.mjs`: builds the Chrome and Firefox store packages into `dist/`
 - `test/icon_fixtures.py`: serves local test sites with deliberately broken manifests and icons (`python3 test/icon_fixtures.py`, then open `http://localhost:8701/`)
 - `store/`: store listing text, images, privacy policy, and the sources for the images (`store/source/`)
+
+## License
+
+QuickTag is open source under the [MIT License](LICENSE).

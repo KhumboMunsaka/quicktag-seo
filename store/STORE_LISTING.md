@@ -35,7 +35,7 @@ On-page SEO checker. Press Alt+Shift+Q to see a page's title tag, meta descripti
 ### Full description
 Use the same text for both stores.
 ```
-QuickTag is an on-page SEO checker that shows a page's most important tags the moment you need them. Press Alt+Shift+Q, or click the toolbar icon, and a panel shows the title tag, meta description, H1, canonical URL, meta robots and more, with clear colour-coded warnings. No more digging through View Source or developer tools.
+QuickTag is a free, open-source SEO meta tag checker that shows a page's most important tags the moment you need them. Press Alt+Shift+Q, or click the toolbar icon, and a panel shows the title tag, meta description, H1, canonical URL, meta robots and more, with clear colour-coded warnings. No more digging through View Source or developer tools.
 
 It's built for SEO specialists, content teams and developers who check pages all day: website migrations, redesigns, pre-launch QA, technical SEO audits and competitor research.
 
@@ -66,6 +66,9 @@ COPY RESULTS TO A SPREADSHEET
 
 PRIVATE BY DESIGN
 QuickTag reads the page you're viewing inside your browser, and only on sites where you switch it on. It doesn't collect, store or send your browsing data anywhere: no accounts, no analytics, no tracking. The only things it saves are the list of sites you've switched it on for and your panel settings, kept in your browser. To check icon sizes, it loads the site's own manifest and icon files, just as your browser does.
+
+OPEN SOURCE
+QuickTag's full source code is public, so you can check exactly what it does. Report issues or suggest features on GitHub: https://github.com/KhumboMunsaka/quicktag-seo
 
 HOW TO USE
 1. Open any web page.
@@ -149,7 +152,7 @@ Developer Hub → **Submit a New Add-on** → **On this site** (listed) → uplo
 - **Categories:** Web Development, Search Tools
 - **Tags:** seo, meta tags, title tag, meta description, canonical, h1, hreflang, schema, site migration, seo audit
 - **Support email / website:** yours.
-- **License:** your choice. "All Rights Reserved" keeps the code yours; MIT lets others reuse it.
+- **License:** MIT License (matches the `LICENSE` file in the repo).
 - **Privacy policy:** tick "This add-on has a privacy policy" and paste the text of `store/privacy-policy.html` (the section text, without the page title).
 - **Screenshots:** the four `screenshot-*.png` files, with these captions:
   1. `QuickTag on a live website: title, description, H1, canonical and robots at a glance.`
