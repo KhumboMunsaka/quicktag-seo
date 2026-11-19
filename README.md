@@ -27,7 +27,7 @@ It stays installed after Chrome restarts. After you edit the code, click the rel
 
 **Permanent, with Firefox Developer Edition:**
 1. In `about:config`, set `xpinstall.signatures.required` to `false`.
-2. In `about:addons`, click the gear icon, choose **Install Add-on From File…**, and pick `dist/quicktag-firefox-1.0.0.xpi`.
+2. In `about:addons`, click the gear icon, choose **Install Add-on From File…**, and pick `dist/quicktag-firefox-1.1.0.xpi`.
 
 After code changes, rebuild (see below) and repeat step 2.
 
@@ -40,8 +40,8 @@ node scripts/build.mjs
 ```
 
 This writes one package per store into `dist/`:
-- `dist/quicktag-chrome-1.0.0.zip`: upload to the Chrome Web Store.
-- `dist/quicktag-firefox-1.0.0.xpi`: upload to addons.mozilla.org, or install it in Firefox Developer Edition.
+- `dist/quicktag-chrome-1.1.0.zip`: upload to the Chrome Web Store.
+- `dist/quicktag-firefox-1.1.0.xpi`: upload to addons.mozilla.org, or install it in Firefox Developer Edition.
 
 `manifest.json` in this folder works in both browsers for local testing. Each package gets a copy with only the entries that browser understands. Bump `version` in `manifest.json` before uploading an update.
 

@@ -5,8 +5,8 @@ Build the packages first with `node scripts/build.mjs`.
 
 | What | File |
 |---|---|
-| Chrome package | `dist/quicktag-chrome-1.0.0.zip` |
-| Firefox package | `dist/quicktag-firefox-1.0.0.xpi` |
+| Chrome package | `dist/quicktag-chrome-1.1.0.zip` |
+| Firefox package | `dist/quicktag-firefox-1.1.0.xpi` |
 | Store icon (128×128) | `store/images/store-icon-128.png` |
 | Screenshots (1280×800) | `store/images/screenshot-1-panel.png` … `screenshot-4-copy.png` |
 | Chrome small promo tile (440×280) | `store/images/promo-small-440x280.png` |
@@ -57,6 +57,7 @@ FAST BY DESIGN
 • Stays on per site: switch QuickTag on for a website and it appears on every page you open there, so you can click through a site and check each page instantly.
 • Live updates: on single-page apps, the panel refreshes as the URL, title, meta tags and headings change.
 • Out of your way: move the panel to the left or right, collapse it to a slim bar that still shows the issue count, and open only the sections you need.
+• Find headings fast: hover any heading on the page and its row lights up in the panel's heading outline, even when the site styles it differently (for example in capitals).
 
 COPY RESULTS TO A SPREADSHEET
 • Copy as two columns (the default): field names and values, ready to paste into Google Sheets or Excel. Paste the old page and the new page side by side to compare a migration.
@@ -83,7 +84,7 @@ QuickTag shows the page as your browser renders it, after JavaScript has run. Th
 
 ## Chrome Web Store
 
-Developer Dashboard → **Add new item** → upload `dist/quicktag-chrome-1.0.0.zip`.
+Developer Dashboard → **Add new item** → upload `dist/quicktag-chrome-1.1.0.zip`.
 
 ### Store listing tab
 - **Description:** the full description above.
@@ -141,7 +142,7 @@ QuickTag's single purpose is to inspect the SEO tags of whatever page the user i
 
 ## Firefox Add-ons (addons.mozilla.org)
 
-Developer Hub → **Submit a New Add-on** → **On this site** (listed) → upload `dist/quicktag-firefox-1.0.0.xpi`.
+Developer Hub → **Submit a New Add-on** → **On this site** (listed) → upload `dist/quicktag-firefox-1.1.0.xpi`.
 
 - **Platforms:** Firefox for desktop only. Untick Android, since QuickTag is driven by a keyboard shortcut.
 - **Source code:** No. The package contains no minified, bundled or machine-generated code.
